@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+  xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  
+  <url>
+    <loc>https://www.guoyongyan.com/authors/</loc>
+    <lastmod>2021-01-01T00:00:00+00:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh"
+                href="https://www.guoyongyan.com/zh/authors/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://www.guoyongyan.com/authors/"
+                />
+  </url>
+  
+  <url>
+    <loc>https://www.guoyongyan.com/categories/blog/</loc>
+    <lastmod>2021-01-01T00:00:00+00:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh"
+                href="https://www.guoyongyan.com/zh/categories/blog/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://www.guoyongyan.com/categories/blog/"
+                />
+  </url>
+  
+  <url>
+    <loc>https://www.guoyongyan.com/categories/</loc>
+    <lastmod>2021-01-01T00:00:00+00:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh"
+                href="https://www.guoyongyan.com/zh/categories/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://www.guoyongyan.com/categories/"
+                />
+  </url>
+  
+  <url>
+    <loc>https://www.guoyongyan.com/posts/comming-soon/</loc>
+    <lastmod>2021-01-01T00:00:00+00:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh"
+                href="https://www.guoyongyan.com/zh/posts/%E6%9A%82%E6%9C%AA%E5%AF%BC%E5%85%A5/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://www.guoyongyan.com/posts/comming-soon/"
+                />
+  </url>
+  
+  <url>
+    <loc>https://www.guoyongyan.com/posts/</loc>
+    <lastmod>2021-01-01T00:00:00+00:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh"
+                href="https://www.guoyongyan.com/zh/posts/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://www.guoyongyan.com/posts/"
+                />
+  </url>
+  
+  <url>
+    <loc>https://www.guoyongyan.com/tags/</loc>
+    <lastmod>2021-01-01T00:00:00+00:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh"
+                href="https://www.guoyongyan.com/zh/tags/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://www.guoyongyan.com/tags/"
+                />
+  </url>
+  
+  <url>
+    <loc>https://www.guoyongyan.com/tags/test/</loc>
+    <lastmod>2021-01-01T00:00:00+00:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh"
+                href="https://www.guoyongyan.com/zh/tags/test/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://www.guoyongyan.com/tags/test/"
+                />
+  </url>
+  
+  <url>
+    <loc>https://www.guoyongyan.com/authors/yongyan-guo/</loc>
+    <lastmod>2021-01-01T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.guoyongyan.com/</loc>
+    <lastmod>2021-01-01T00:00:00+00:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh"
+                href="https://www.guoyongyan.com/zh/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://www.guoyongyan.com/"
+                />
+  </url>
+  
+  <url>
+    <loc>https://www.guoyongyan.com/about/</loc>
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh"
+                href="https://www.guoyongyan.com/zh/about/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://www.guoyongyan.com/about/"
+                />
+  </url>
+  
+  <url>
+    <loc>https://www.guoyongyan.com/awards/</loc>
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh"
+                href="https://www.guoyongyan.com/zh/awards/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://www.guoyongyan.com/awards/"
+                />
+  </url>
+  
+  <url>
+    <loc>https://www.guoyongyan.com/contact/</loc>
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh"
+                href="https://www.guoyongyan.com/zh/contact/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://www.guoyongyan.com/contact/"
+                />
+  </url>
+  
+  <url>
+    <loc>https://www.guoyongyan.com/snippets/first/</loc>
+  </url>
+  
+  <url>
+    <loc>https://www.guoyongyan.com/publications/</loc>
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh"
+                href="https://www.guoyongyan.com/zh/publications/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://www.guoyongyan.com/publications/"
+                />
+  </url>
+  
+  <url>
+    <loc>https://www.guoyongyan.com/snippets/second/</loc>
+  </url>
+  
+  <url>
+    <loc>https://www.guoyongyan.com/series/</loc>
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh"
+                href="https://www.guoyongyan.com/zh/series/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://www.guoyongyan.com/series/"
+                />
+  </url>
+  
+  <url>
+    <loc>https://www.guoyongyan.com/snippets/</loc>
+  </url>
+  
+</urlset>
