@@ -6,14 +6,27 @@
     <description>Recent content in Posts on 郭勇延</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Fri, 01 Jan 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://www.guoyongyan.com/zh/posts/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 29 Jan 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://www.guoyongyan.com/zh/posts/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>暂未导入</title>
-      <link>https://www.guoyongyan.com/zh/posts/%E6%9A%82%E6%9C%AA%E5%AF%BC%E5%85%A5/</link>
-      <pubDate>Fri, 01 Jan 2021 00:00:00 +0000</pubDate>
+      <title>利用网络威胁情报实现高效的网络威胁挖掘</title>
+      <link>https://www.guoyongyan.com/zh/posts/%E5%88%A9%E7%94%A8%E7%BD%91%E7%BB%9C%E5%A8%81%E8%83%81%E6%83%85%E6%8A%A5%E5%AE%9E%E7%8E%B0%E9%AB%98%E6%95%88%E7%9A%84%E7%BD%91%E7%BB%9C%E5%A8%81%E8%83%81%E6%8C%96%E6%8E%98/</link>
+      <pubDate>Fri, 29 Jan 2021 00:00:00 +0000</pubDate>
       
-      <guid>https://www.guoyongyan.com/zh/posts/%E6%9A%82%E6%9C%AA%E5%AF%BC%E5%85%A5/</guid>
-      <description>这是一个测试页面！</description>
+      <guid>https://www.guoyongyan.com/zh/posts/%E5%88%A9%E7%94%A8%E7%BD%91%E7%BB%9C%E5%A8%81%E8%83%81%E6%83%85%E6%8A%A5%E5%AE%9E%E7%8E%B0%E9%AB%98%E6%95%88%E7%9A%84%E7%BD%91%E7%BB%9C%E5%A8%81%E8%83%81%E6%8C%96%E6%8E%98/</guid>
+      <description>原文作者：Peng Gao, Fei Shao, Xiaoyuan Liu, Xusheng Xiao, Zheng Qin, Fengyuan Xu, Prateek Mittal, Sanjeev R. Kulkarni, Dawn Song
+  原文标题：Enabling Efficient Cyber Threat Hunting With Cyber Threat Intelligence
+  原文链接：https://arxiv.org/abs/2010.13637
+ 介绍 基于日志的网络威胁挖掘已经成为对抗复杂网络攻击的一种重要解决方案。现有的方法主要依赖人工，并且忽略了开放源码网络威胁情报(OSCTI)提供的关于威胁行为的丰富外部知识。 因此，目前的威胁挖掘过程是劳动密集型且容易出错。为了解决上述问题，作者提出了一种在计算机系统中使用OSCTI促进网络威胁挖掘的系统————EFFHUNTER。
+本文贡献：
+EFFHUNTER基于成熟的系统审计框架，收集系统审计日志数据；使用Postgre SQL，Neo4j等数据库进行数据存储，因此能够利用这些成熟基础设施提供的服务，例如数据管理、查询和恢复。
+EFFHUNTER提供了：
+ 一个无监督、轻量级和精确的NLP管道，从非结构化OSCTI文本中提取结构化威胁行为。 一个简洁而表达的特定领域查询语言TBQL，用于搜索恶意系统活动。 一个查询综合机制，它自动合成TBQL查询，用于从提取的威胁行为中寻找威胁。 一个高效的查询执行引擎来搜索大的审计日志数据。  对一系列广泛的攻击案例进行的评估表明，EFFHUNTER在实际寻找威胁方面具有较高的准确性和效率。
+方法 EFFHUNTER的系统框架图如图1所示：
+  EFFHUNTER有两个子系统：
+ 用于自动威胁知识提取的威胁行为提取流水线；包括OSCTI报告的预处理、IOC实体的提取、IOC关系抽取以及威胁行为图构建。 基于系统审计的查询子系统，它提供了一种针对特定领域的查询语言TBQL，用于在计算机系统中寻找威胁。  在查询子系统中，主机上部署了成熟系统审计框架的监控代理，以收集系统审计日志记录数据。然后将收集到的数据发送到数据库进行存储。对于给定输入OSCTI报告，EFFHUNTER首先提取IOCs(例如文件名、文件路径、IP)及其关系，并构造威胁行为图。然后EFFHUNTER从威胁行为图中合成一个TBQL查询，并执行该查询以查找匹配的系统审计记录。在OSCTI报告不可用或几乎不包含有用信息的情况下，安全分析人员可以使用EFFHUNTER作为主动威胁搜索工具，并手动构造TBQL查询以供执行。
+威胁行为提取 由于在OSCTI文本和常规自然语言存在大量的细微差别(例如，IOCs中的点、下划线)，这限制了大多数NLP模块和现有信息提取工具的性能。为了解决这个问题，EFFHUNTER使用一个专门的轻量级、无监督的流程来处理细微差别，并准确地提取IOC及其关系来构建威胁行为图。流程如Algorithm 1所示。
+  威胁行为查询语言 (TBQL) EFFHUNTER提供了一种特定领域的查询语言TBQL，以促进对系统审计日志数据的威胁挖掘。与通用查询语言相比，TBQL集成了系统实体、系统事件模式、事件路径模式和各种类型的过滤器的一系列关键原语，从而易于指定用于威胁搜索的复杂多步系统行为。Grammar 1展示了TBQL的代表性语法。
+  TBQL查询合成 为了方便使用OSCTI进行威胁挖掘，EFFHUNTER提供了一种查询合成机制，它自动从威胁行为图中合成TBQL查询。该机制分为4步：</description>
     </item>
     
   </channel>
