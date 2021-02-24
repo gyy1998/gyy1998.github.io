@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Language" content="en">
+
+    <meta name="author" content="Yongyan Guo">
+    <meta name="description" content="原文作者：Aditya Pingle, Aritran Piplai, Sudip Mittal, Anupam Joshi, James Holt, and Richard Zak
+  原文标题：RelExt: Relation Extraction using Deep Learning approaches for Cybersecurity Knowledge Graph Improvement
+  原文链接：https://dl.acm.org/doi/abs/10.1145/3341161.3343519
+  发表会议：2019 IEEE/ACM International Conference on Advances in Social Networks Analysis and Mining
+ UMBC ebiquity研究团队在网络安全知识图谱领域的研究处于领先地位。本文是该团队提出的一种基于深度学习的安全领域关系抽取方法。
+1 介绍 网络攻击旨在破坏信息的机密性、完整性和可用性。目前，类似拒绝服务、通过后门或陷阱门执行的恶意代码、恶意软件和特洛伊木马等攻击层出不穷。每年，研究人员和网络防御专家都会发现数百万种的攻击和恶意软件变体。
+开源威胁情报源（例如有关网络攻击的文本描述）可以以结构化的方式存储在网络安全知识图谱中。网络安全知识图谱对于帮助安全分析人员检测网络威胁至关重要，因为它以语义三元组的形式存储了大量可以查询的网络威胁信息。语义三元组是知识图谱中的关键组成部分。网络安全的语义三元组由一对网络安全实体和实体之间的关系组成。网络安全实体可以是从网络安全文本中提取的一个词或一组词。通常，使用命名实体识别器（NER）来提取构成基础知识图的实体。目前已经存在多个这样的网络安全领域特定的命名实体识别器。为创建网络安全知识图谱，下一步是预测从特定网络威胁情报源提取的两个特定实体之间的正确关系。一旦弄清了各种关系和实体，就可以在知识图谱中声明语义三元组。
+本文提出了RelExt系统，该系统致力于通过预测由已经通过命名实体识别器识别的网络安全实体来寻找关系。RelExt是一个可以预测构成三元组的网络安全实体关系的前馈神经网络模型。目前现有的模型使用诸如所涉及实体的长度、实体之间的单词等作为模型的特征。作者利用实体之间的上下文相似性来确定实体是否构成一个三元组。RelExt使用上下文向量表示由网络安全特定NER识别的网络安全实体。
+通过RelExt生成语义三元组来构造网络安全知识图谱，安全分析师就可以从知识图谱中检索有用数据，并使用该信息做出有关网络攻击的决策。
+2 网络安全知识图谱 RelExt的一个主要作用是帮助生成网络安全知识图（CKG）。CKG通常包含两个主要部分，即架构和与网络安全相关的各种语义三元组。为了构建CKG，第一件事就是定义一个模式。接下来，使用RelExt提取网络安全实体之间的关系，这些实体是从网络安全文本中提取的单词或单词组。一旦设置了实体关系，就可以填充与架构一致的数据。
+Syed等人在他们的论文中，开发了一种称为“统一网络安全本体”（UCO 1.0）的网络安全本体。他们的论文描述了包含各种网络安全元素的本体的原型版本。作者使用结构化威胁信息表达STIX 2.0定义的关系和类来更新UCO 1.0并创建UCO 2.0。STIX 2.0的类与关系如图所示。
+  2.1 UCO2.0的部分实体   软件：通常与一段代码相关的实体，用作Office或Unix操作系统等工具。">
+    <meta name="keywords" content="">
+
+    <meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="RelExt: 用于改进网络安全知识图谱的关系抽取方法"/>
+<meta name="twitter:description" content="原文作者：Aditya Pingle, Aritran Piplai, Sudip Mittal, Anupam Joshi, James Holt, and Richard Zak
+  原文标题：RelExt: Relation Extraction using Deep Learning approaches for Cybersecurity Knowledge Graph Improvement
+  原文链接：https://dl.acm.org/doi/abs/10.1145/3341161.3343519
+  发表会议：2019 IEEE/ACM International Conference on Advances in Social Networks Analysis and Mining
+ UMBC ebiquity研究团队在网络安全知识图谱领域的研究处于领先地位。本文是该团队提出的一种基于深度学习的安全领域关系抽取方法。
+1 介绍 网络攻击旨在破坏信息的机密性、完整性和可用性。目前，类似拒绝服务、通过后门或陷阱门执行的恶意代码、恶意软件和特洛伊木马等攻击层出不穷。每年，研究人员和网络防御专家都会发现数百万种的攻击和恶意软件变体。
+开源威胁情报源（例如有关网络攻击的文本描述）可以以结构化的方式存储在网络安全知识图谱中。网络安全知识图谱对于帮助安全分析人员检测网络威胁至关重要，因为它以语义三元组的形式存储了大量可以查询的网络威胁信息。语义三元组是知识图谱中的关键组成部分。网络安全的语义三元组由一对网络安全实体和实体之间的关系组成。网络安全实体可以是从网络安全文本中提取的一个词或一组词。通常，使用命名实体识别器（NER）来提取构成基础知识图的实体。目前已经存在多个这样的网络安全领域特定的命名实体识别器。为创建网络安全知识图谱，下一步是预测从特定网络威胁情报源提取的两个特定实体之间的正确关系。一旦弄清了各种关系和实体，就可以在知识图谱中声明语义三元组。
+本文提出了RelExt系统，该系统致力于通过预测由已经通过命名实体识别器识别的网络安全实体来寻找关系。RelExt是一个可以预测构成三元组的网络安全实体关系的前馈神经网络模型。目前现有的模型使用诸如所涉及实体的长度、实体之间的单词等作为模型的特征。作者利用实体之间的上下文相似性来确定实体是否构成一个三元组。RelExt使用上下文向量表示由网络安全特定NER识别的网络安全实体。
+通过RelExt生成语义三元组来构造网络安全知识图谱，安全分析师就可以从知识图谱中检索有用数据，并使用该信息做出有关网络攻击的决策。
+2 网络安全知识图谱 RelExt的一个主要作用是帮助生成网络安全知识图（CKG）。CKG通常包含两个主要部分，即架构和与网络安全相关的各种语义三元组。为了构建CKG，第一件事就是定义一个模式。接下来，使用RelExt提取网络安全实体之间的关系，这些实体是从网络安全文本中提取的单词或单词组。一旦设置了实体关系，就可以填充与架构一致的数据。
+Syed等人在他们的论文中，开发了一种称为“统一网络安全本体”（UCO 1.0）的网络安全本体。他们的论文描述了包含各种网络安全元素的本体的原型版本。作者使用结构化威胁信息表达STIX 2.0定义的关系和类来更新UCO 1.0并创建UCO 2.0。STIX 2.0的类与关系如图所示。
+  2.1 UCO2.0的部分实体   软件：通常与一段代码相关的实体，用作Office或Unix操作系统等工具。"/>
+
+    <meta property="og:title" content="RelExt: 用于改进网络安全知识图谱的关系抽取方法" />
+<meta property="og:description" content="原文作者：Aditya Pingle, Aritran Piplai, Sudip Mittal, Anupam Joshi, James Holt, and Richard Zak
+  原文标题：RelExt: Relation Extraction using Deep Learning approaches for Cybersecurity Knowledge Graph Improvement
+  原文链接：https://dl.acm.org/doi/abs/10.1145/3341161.3343519
+  发表会议：2019 IEEE/ACM International Conference on Advances in Social Networks Analysis and Mining
+ UMBC ebiquity研究团队在网络安全知识图谱领域的研究处于领先地位。本文是该团队提出的一种基于深度学习的安全领域关系抽取方法。
+1 介绍 网络攻击旨在破坏信息的机密性、完整性和可用性。目前，类似拒绝服务、通过后门或陷阱门执行的恶意代码、恶意软件和特洛伊木马等攻击层出不穷。每年，研究人员和网络防御专家都会发现数百万种的攻击和恶意软件变体。
+开源威胁情报源（例如有关网络攻击的文本描述）可以以结构化的方式存储在网络安全知识图谱中。网络安全知识图谱对于帮助安全分析人员检测网络威胁至关重要，因为它以语义三元组的形式存储了大量可以查询的网络威胁信息。语义三元组是知识图谱中的关键组成部分。网络安全的语义三元组由一对网络安全实体和实体之间的关系组成。网络安全实体可以是从网络安全文本中提取的一个词或一组词。通常，使用命名实体识别器（NER）来提取构成基础知识图的实体。目前已经存在多个这样的网络安全领域特定的命名实体识别器。为创建网络安全知识图谱，下一步是预测从特定网络威胁情报源提取的两个特定实体之间的正确关系。一旦弄清了各种关系和实体，就可以在知识图谱中声明语义三元组。
+本文提出了RelExt系统，该系统致力于通过预测由已经通过命名实体识别器识别的网络安全实体来寻找关系。RelExt是一个可以预测构成三元组的网络安全实体关系的前馈神经网络模型。目前现有的模型使用诸如所涉及实体的长度、实体之间的单词等作为模型的特征。作者利用实体之间的上下文相似性来确定实体是否构成一个三元组。RelExt使用上下文向量表示由网络安全特定NER识别的网络安全实体。
+通过RelExt生成语义三元组来构造网络安全知识图谱，安全分析师就可以从知识图谱中检索有用数据，并使用该信息做出有关网络攻击的决策。
+2 网络安全知识图谱 RelExt的一个主要作用是帮助生成网络安全知识图（CKG）。CKG通常包含两个主要部分，即架构和与网络安全相关的各种语义三元组。为了构建CKG，第一件事就是定义一个模式。接下来，使用RelExt提取网络安全实体之间的关系，这些实体是从网络安全文本中提取的单词或单词组。一旦设置了实体关系，就可以填充与架构一致的数据。
+Syed等人在他们的论文中，开发了一种称为“统一网络安全本体”（UCO 1.0）的网络安全本体。他们的论文描述了包含各种网络安全元素的本体的原型版本。作者使用结构化威胁信息表达STIX 2.0定义的关系和类来更新UCO 1.0并创建UCO 2.0。STIX 2.0的类与关系如图所示。
+  2.1 UCO2.0的部分实体   软件：通常与一段代码相关的实体，用作Office或Unix操作系统等工具。" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://www.guoyongyan.com/posts/relext-%E7%94%A8%E4%BA%8E%E6%94%B9%E8%BF%9B%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%E7%9F%A5%E8%AF%86%E5%9B%BE%E8%B0%B1%E7%9A%84%E5%85%B3%E7%B3%BB%E6%8A%BD%E5%8F%96%E6%96%B9%E6%B3%95/" />
+<meta property="article:published_time" content="2021-02-23T00:00:00+00:00" />
+<meta property="article:modified_time" content="2021-02-23T00:00:00+00:00" />
+
+
+    <title>
+  RelExt: 用于改进网络安全知识图谱的关系抽取方法 · Yongyan Guo
+</title>
+
+    
+      <link rel="canonical" href="https://www.guoyongyan.com/posts/relext-%E7%94%A8%E4%BA%8E%E6%94%B9%E8%BF%9B%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%E7%9F%A5%E8%AF%86%E5%9B%BE%E8%B0%B1%E7%9A%84%E5%85%B3%E7%B3%BB%E6%8A%BD%E5%8F%96%E6%96%B9%E6%B3%95/">
+    
+
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css?family=Lato:400,700%7CMerriweather:300,700%7CSource+Code+Pro:400,700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fork-awesome@1.1.7/css/fork-awesome.min.css"
+      integrity="sha256-gsmEoJAws/Kd3CjuOQzLie5Q3yshhvmo7YNtBG7aaEY=" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/normalize.css@8/normalize.min.css">
+    
+      
+      
+      <link rel="stylesheet" href="/css/coder.min.f01c647a0d25b40da992a37c3376291185eed8a50ced8c26cc2c0bcfe38c97df.css" integrity="sha256-8Bxkeg0ltA2pkqN8M3YpEYXu2KUM7YwmzCwLz&#43;OMl98=" crossorigin="anonymous" media="screen" />
+    
+
+    
+
+    
+
+    
+
+    
+
+    <link rel="icon" type="image/png" href="/images/favicon-32x32.png" sizes="32x32">
+    <link rel="icon" type="image/png" href="/images/favicon-16x16.png" sizes="16x16">
+
+    <link rel="apple-touch-icon" href="/images/apple-touch-icon.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+
+    
+      <script defer src="https://twemoji.maxcdn.com/v/13.0.1/twemoji.min.js"
+        integrity="sha384-5f4X0lBluNY/Ib4VhGx0Pf6iDCF99VGXJIyYy7dDLY5QlEd7Ap0hICSSZA1XYbc4" crossorigin="anonymous"></script>
+    
+
+    <meta name="generator" content="Hugo 0.79.1" />
+  </head>
+
+  
+  
+  <body class="colorscheme-light"
+        onload=" twemoji.parse(document.body); "
+  >
+    
+
+    <main class="wrapper">
+      <nav class="navigation">
+  <section class="container">
+    <a class="navigation-title" href="/">
+      Yongyan Guo
+    </a>
+    
+      <input type="checkbox" id="menu-toggle" />
+      <label class="menu-button float-right" for="menu-toggle">
+        <i class="fa fa-bars fa-fw" aria-hidden="true"></i>
+      </label>
+      <ul class="navigation-list">
+        
+          
+            <li class="navigation-item">
+              <a class="navigation-link" href="/about/">About</a>
+            </li>
+          
+            <li class="navigation-item">
+              <a class="navigation-link" href="/posts/">Blog</a>
+            </li>
+          
+            <li class="navigation-item">
+              <a class="navigation-link" href="/awards/">Awards</a>
+            </li>
+          
+            <li class="navigation-item">
+              <a class="navigation-link" href="/publications/">Publications</a>
+            </li>
+          
+            <li class="navigation-item">
+              <a class="navigation-link" href="/contact/">Contact me</a>
+            </li>
+          
+        
+        
+          
+          
+          
+            
+              
+                <li class="navigation-item menu-separator">
+                  <span>|</span>
+                </li>
+                
+              
+              <li class="navigation-item">
+                <a href="https://www.guoyongyan.com/zh/posts/relext-%E7%94%A8%E4%BA%8E%E6%94%B9%E8%BF%9B%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%E7%9F%A5%E8%AF%86%E5%9B%BE%E8%B0%B1%E7%9A%84%E5%85%B3%E7%B3%BB%E6%8A%BD%E5%8F%96%E6%96%B9%E6%B3%95/">中文</a>
+              </li>
+            
+          
+        
+      </ul>
+    
+  </section>
+</nav>
+
+
+      <div class="content">
+        
+  <section class="container post">
+    <article>
+      <header>
+        <div class="post-title">
+          <h1 class="title">RelExt: 用于改进网络安全知识图谱的关系抽取方法</h1>
+        </div>
+        <div class="post-meta">
+          <div class="date">
+            <span class="posted-on">
+              <i class="fa fa-calendar" aria-hidden="true"></i>
+              <time datetime='2021-02-23T00:00:00Z'>
+                February 23, 2021
+              </time>
+            </span>
+            <span class="reading-time">
+              <i class="fa fa-clock-o" aria-hidden="true"></i>
+              One-minute read
+            </span>
+          </div>
+          
+          <div class="categories">
+  <i class="fa fa-folder" aria-hidden="true"></i>
+    <a href="/categories/paper-reading/">Paper reading</a></div>
+
+          <div class="tags">
+  <i class="fa fa-tag" aria-hidden="true"></i>
+    <a href="/tags/cti/">CTI</a></div>
+
+        </div>
+      </header>
+
+      <div>
+        
+        <blockquote>
+<p>原文作者：Aditya Pingle, Aritran Piplai, Sudip Mittal, Anupam Joshi, James Holt, and Richard Zak</p>
+</blockquote>
+<blockquote>
+<p>原文标题：RelExt: Relation Extraction using Deep Learning approaches for Cybersecurity Knowledge Graph Improvement</p>
+</blockquote>
+<blockquote>
+<p>原文链接：https://dl.acm.org/doi/abs/10.1145/3341161.3343519</p>
+</blockquote>
+<blockquote>
+<p>发表会议：2019 IEEE/ACM International Conference on Advances in Social Networks Analysis and Mining</p>
+</blockquote>
+<p><a href="https://ebiquity.umbc.edu/">UMBC ebiquity研究团队</a>在网络安全知识图谱领域的研究处于领先地位。本文是该团队提出的一种基于深度学习的安全领域关系抽取方法。</p>
+<h2 id="1-介绍">1 介绍</h2>
+<p>网络攻击旨在破坏信息的机密性、完整性和可用性。目前，类似拒绝服务、通过后门或陷阱门执行的恶意代码、恶意软件和特洛伊木马等攻击层出不穷。每年，研究人员和网络防御专家都会发现数百万种的攻击和恶意软件变体。</p>
+<p>开源威胁情报源（例如有关网络攻击的文本描述）可以以结构化的方式存储在网络安全知识图谱中。网络安全知识图谱对于帮助安全分析人员检测网络威胁至关重要，因为它以语义三元组的形式存储了大量可以查询的网络威胁信息。语义三元组是知识图谱中的关键组成部分。网络安全的语义三元组由一对网络安全实体和实体之间的关系组成。网络安全实体可以是从网络安全文本中提取的一个词或一组词。通常，使用命名实体识别器（NER）来提取构成基础知识图的实体。目前已经存在多个这样的网络安全领域特定的命名实体识别器。为创建网络安全知识图谱，下一步是预测从特定网络威胁情报源提取的两个特定实体之间的正确关系。一旦弄清了各种关系和实体，就可以在知识图谱中声明语义三元组。</p>
+<p>本文提出了RelExt系统，该系统致力于通过预测由已经通过命名实体识别器识别的网络安全实体来寻找关系。RelExt是一个可以预测构成三元组的网络安全实体关系的前馈神经网络模型。目前现有的模型使用诸如所涉及实体的长度、实体之间的单词等作为模型的特征。作者利用实体之间的上下文相似性来确定实体是否构成一个三元组。RelExt使用上下文向量表示由网络安全特定NER识别的网络安全实体。</p>
+<p>通过RelExt生成语义三元组来构造网络安全知识图谱，安全分析师就可以从知识图谱中检索有用数据，并使用该信息做出有关网络攻击的决策。</p>
+<h2 id="2-网络安全知识图谱">2 网络安全知识图谱</h2>
+<p>RelExt的一个主要作用是帮助生成网络安全知识图（CKG）。CKG通常包含两个主要部分，即架构和与网络安全相关的各种语义三元组。为了构建CKG，第一件事就是定义一个模式。接下来，使用RelExt提取网络安全实体之间的关系，这些实体是从网络安全文本中提取的单词或单词组。一旦设置了实体关系，就可以填充与架构一致的数据。</p>
+<p>Syed等人在他们的论文中，开发了一种称为“统一网络安全本体”（UCO 1.0）的网络安全本体。他们的论文描述了包含各种网络安全元素的本体的原型版本。作者使用结构化威胁信息表达STIX 2.0定义的关系和类来更新UCO 1.0并创建UCO 2.0。STIX 2.0的类与关系如图所示。</p>
+<figure>
+    <img src="/images/blog/20210223/paper2-fig1-20210223.jpg"/> 
+</figure>
+
+<h3 id="21-uco20的部分实体">2.1 UCO2.0的部分实体</h3>
+<ul>
+<li>
+<p>软件：通常与一段代码相关的实体，用作Office或Unix操作系统等工具。</p>
+</li>
+<li>
+<p>恶意软件：指代插入到系统中的恶意代码或软件的实体。</p>
+</li>
+<li>
+<p>指示器：包含某种模式的实体，该模式可以帮助管理员指示正在进行的攻击或恶意活动。</p>
+</li>
+<li>
+<p>漏洞：指的是可能由不良用户利用的漏洞或弱点补丁的实体。</p>
+</li>
+<li>
+<p>防御措施：指可以阻止或响应攻击的一个或一组动作的实体。</p>
+</li>
+<li>
+<p>工具：一个实体，指的是可以由威胁行为者用于恶意活动的合法软件。</p>
+</li>
+<li>
+<p>攻击模式：是指可能导致对个人或用户组进行主动攻击的步骤的实体。</p>
+</li>
+</ul>
+<h3 id="22-uco20的部分关系">2.2 UCO2.0的部分关系</h3>
+<ul>
+<li>
+<p>软件包含关系：其中主体或仅客体属于软件类。</p>
+</li>
+<li>
+<p>可利用漏洞关系：其中主体属于软件类，而客体属于漏洞类。</p>
+</li>
+<li>
+<p>减轻伤害关系：这是一种主体属于一个行动过程类而客体实体属于恶意软件或活动类的关系，其中主体旨在减轻对象实体造成的损害。</p>
+</li>
+<li>
+<p>利用关系：主体属于活动或恶意软件类别而客体属于工具或软件类别的关系，其中主体旨在利用客体进行攻击。</p>
+</li>
+<li>
+<p>指示关系：其中主体属于指示符类别，而客体属于恶意软件或活动类别，这表示证明主体对客体的存在或影响。</p>
+</li>
+<li>
+<p>归因关系：主体实体属于活动类或入侵集类的关系，客体实体属于威胁行为体类，主体实体归因于客体实体。</p>
+</li>
+<li>
+<p>关联关系：主体实体与客体实体相互关联的关系。</p>
+</li>
+<li>
+<p>定位关系：实体们相互依赖或成为另一个实体一部分的关系。</p>
+</li>
+</ul>
+<h2 id="3-relext实现">3 RelExt实现</h2>
+<figure>
+    <img src="/images/blog/20210223/paper2-fig2-20210223.jpg"/> 
+</figure>
+
+<p>网络安全知识图语义三元组构建过程如图所示。作者使用命名实体识别器（NER）从一段网络安全文本中提取网络安全实体。这个NER是UMBC团队开发的安全领域实体识别器CyberTwitter。NER输出一个键值对，其中键是网络安全实体，值是UCO 2.0中定义的类。</p>
+<p>接下来，RelExt提取两个命名实体之间的关系。RelExt的输入是从特定网络安全文本中提取的一对命名实体。输出的实体之间的关系。</p>
+<p>RelExt的输入可以根据网络安全知识图的本体进行进一步处理。这样可以删除一些与UCO 2.0和STIX 2.0不一致的实体对，得到可信实体对的列表。然后，作者使用Word2Vec模型生成这些实体的词向量。将两个实体的词向量作为RelExt的输入。</p>
+<p>RelExt是前馈神经网络类器，如图所示。RelExt会从UCO本体中预测命名实体对之间的关系。</p>
+<figure>
+    <img src="/images/blog/20210223/paper2-fig3-20210223.jpg"/> 
+</figure>
+
+<p>该模型具有3个隐藏层以及输入和输出层。隐藏层为全连接层。输入层接受两个实体的词向量。模型接受维数200的两个向量。这些词向量在输入层连接，连接的词嵌入传播到隐藏层。这些向量嵌入在初被串联在一起。串联在一起的词嵌入向量将传播到隐藏层。隐藏的层使用sigmoid函数非线性激活。权重和偏执是通过训练神经模型来学习的。三个隐藏层分别具有200、100、50个神经元。最后使用softmax层生成输出。</p>
+<h2 id="4-实验">4 实验</h2>
+<h3 id="41-数据集">4.1 数据集</h3>
+<p>作者从公开可用的网络安全文本中构建语料库。包括网络安全公告，社交媒体，国家漏洞数据库。在此基础上，作者还从一些网络安全专家搜集详细的技术报告。</p>
+<ul>
+<li>
+<p>网络安全博客，网络安全技术报告可在Internet上公开获取。作者从公开获取的数据中获得了约2G的数据。数据包含约474条详细的技术报告和博客。</p>
+</li>
+<li>
+<p>常见漏洞和披露（CVE）语料库：CVE JSON文件中包含有非常详细的关于产品漏洞的描述。从NVD中搜集了接近90000个JSON实体。</p>
+</li>
+<li>
+<p>微软和Adobe安全公告栏：微软和Adobe在其公告栏中发布他们产品的漏洞信息。</p>
+</li>
+<li>
+<p>STIX语料库：作者还使用从指标信息的可信自动化交换（TAXII）的服务器中的语义三元组，来训练关系提取模型。</p>
+</li>
+</ul>
+<h3 id="42-实验结果">4.2 实验结果</h3>
+<figure>
+    <img src="/images/blog/20210223/paper2-fig4-20210223.jpg"/> 
+</figure>
+
+
+      </div>
+
+
+      <footer>
+        
+
+
+        
+        
+        
+      </footer>
+    </article>
+
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+  <script>
+    MathJax = {
+      tex: {
+        inlineMath: [
+          ['$', '$'], ['\\(', '\\)']
+        ],
+        processEscapes: true,
+        processEnvironments: true
+      },
+      options: {
+        skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre']
+      }
+    };
+  </script>
+  </section>
+
+      </div>
+
+      
+  <footer class="footer">
+    <section class="container">
+      
+      
+        ©
+        
+          2020 -
+        
+        2021
+         Yongyan Guo 
+      
+      
+         · 
+        Powered by <a href="https://gohugo.io/">Hugo</a> & <a href="https://github.com/luizdepra/hugo-coder/">Coder</a>.
+      
+      
+    </section>
+  </footer>
+
+
+    </main>
+
+    
+
+    
+
+    
+
+    <script>
+(function(f, a, t, h, o, m){
+	a[h]=a[h]||function(){
+		(a[h].q=a[h].q||[]).push(arguments)
+	};
+	o=f.createElement('script'),
+	m=f.getElementsByTagName('script')[0];
+	o.async=1; o.src=t; o.id='fathom-script';
+	m.parentNode.insertBefore(o,m)
+})(document, window, '//analytics.example.com/tracker.js', 'fathom');
+fathom('set', 'siteId', 'ABCDE');
+fathom('trackPageview');
+</script>
+
+
+    <script async defer data-domain="example.com" src="https://analytics.example.com/js/plausible.js"></script>
+
+
+    <script data-goatcounter="https://code.goatcounter.com/count"
+        async src="//gc.zgo.at/count.js"></script>
+
+
+    
+<script defer src='https://static.cloudflareinsights.com/beacon.min.js'
+        data-cf-beacon='{"token": "token"}'></script>
+
+
+  </body>
+
+</html>

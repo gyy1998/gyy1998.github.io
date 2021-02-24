@@ -6,7 +6,27 @@
     <description>Recent content in Posts on 郭勇延</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Fri, 29 Jan 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://www.guoyongyan.com/zh/posts/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 23 Feb 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://www.guoyongyan.com/zh/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>RelExt: 用于改进网络安全知识图谱的关系抽取方法</title>
+      <link>https://www.guoyongyan.com/zh/posts/relext-%E7%94%A8%E4%BA%8E%E6%94%B9%E8%BF%9B%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%E7%9F%A5%E8%AF%86%E5%9B%BE%E8%B0%B1%E7%9A%84%E5%85%B3%E7%B3%BB%E6%8A%BD%E5%8F%96%E6%96%B9%E6%B3%95/</link>
+      <pubDate>Tue, 23 Feb 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://www.guoyongyan.com/zh/posts/relext-%E7%94%A8%E4%BA%8E%E6%94%B9%E8%BF%9B%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%E7%9F%A5%E8%AF%86%E5%9B%BE%E8%B0%B1%E7%9A%84%E5%85%B3%E7%B3%BB%E6%8A%BD%E5%8F%96%E6%96%B9%E6%B3%95/</guid>
+      <description>原文作者：Aditya Pingle, Aritran Piplai, Sudip Mittal, Anupam Joshi, James Holt, and Richard Zak
+  原文标题：RelExt: Relation Extraction using Deep Learning approaches for Cybersecurity Knowledge Graph Improvement
+  原文链接：https://dl.acm.org/doi/abs/10.1145/3341161.3343519
+  发表会议：2019 IEEE/ACM International Conference on Advances in Social Networks Analysis and Mining
+ UMBC ebiquity研究团队在网络安全知识图谱领域的研究处于领先地位。本文是该团队提出的一种基于深度学习的安全领域关系抽取方法。
+1 介绍 网络攻击旨在破坏信息的机密性、完整性和可用性。目前，类似拒绝服务、通过后门或陷阱门执行的恶意代码、恶意软件和特洛伊木马等攻击层出不穷。每年，研究人员和网络防御专家都会发现数百万种的攻击和恶意软件变体。
+开源威胁情报源（例如有关网络攻击的文本描述）可以以结构化的方式存储在网络安全知识图谱中。网络安全知识图谱对于帮助安全分析人员检测网络威胁至关重要，因为它以语义三元组的形式存储了大量可以查询的网络威胁信息。语义三元组是知识图谱中的关键组成部分。网络安全的语义三元组由一对网络安全实体和实体之间的关系组成。网络安全实体可以是从网络安全文本中提取的一个词或一组词。通常，使用命名实体识别器（NER）来提取构成基础知识图的实体。目前已经存在多个这样的网络安全领域特定的命名实体识别器。为创建网络安全知识图谱，下一步是预测从特定网络威胁情报源提取的两个特定实体之间的正确关系。一旦弄清了各种关系和实体，就可以在知识图谱中声明语义三元组。
+本文提出了RelExt系统，该系统致力于通过预测由已经通过命名实体识别器识别的网络安全实体来寻找关系。RelExt是一个可以预测构成三元组的网络安全实体关系的前馈神经网络模型。目前现有的模型使用诸如所涉及实体的长度、实体之间的单词等作为模型的特征。作者利用实体之间的上下文相似性来确定实体是否构成一个三元组。RelExt使用上下文向量表示由网络安全特定NER识别的网络安全实体。
+通过RelExt生成语义三元组来构造网络安全知识图谱，安全分析师就可以从知识图谱中检索有用数据，并使用该信息做出有关网络攻击的决策。
+2 网络安全知识图谱 RelExt的一个主要作用是帮助生成网络安全知识图（CKG）。CKG通常包含两个主要部分，即架构和与网络安全相关的各种语义三元组。为了构建CKG，第一件事就是定义一个模式。接下来，使用RelExt提取网络安全实体之间的关系，这些实体是从网络安全文本中提取的单词或单词组。一旦设置了实体关系，就可以填充与架构一致的数据。
+Syed等人在他们的论文中，开发了一种称为“统一网络安全本体”（UCO 1.0）的网络安全本体。他们的论文描述了包含各种网络安全元素的本体的原型版本。作者使用结构化威胁信息表达STIX 2.0定义的关系和类来更新UCO 1.0并创建UCO 2.0。STIX 2.0的类与关系如图所示。
+  2.1 UCO2.0的部分实体   软件：通常与一段代码相关的实体，用作Office或Unix操作系统等工具。</description>
+    </item>
+    
     <item>
       <title>利用网络威胁情报实现高效的网络威胁挖掘</title>
       <link>https://www.guoyongyan.com/zh/posts/%E5%88%A9%E7%94%A8%E7%BD%91%E7%BB%9C%E5%A8%81%E8%83%81%E6%83%85%E6%8A%A5%E5%AE%9E%E7%8E%B0%E9%AB%98%E6%95%88%E7%9A%84%E7%BD%91%E7%BB%9C%E5%A8%81%E8%83%81%E6%8C%96%E6%8E%98/</link>
