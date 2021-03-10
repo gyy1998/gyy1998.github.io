@@ -6,7 +6,34 @@
     <description>Recent content in Paper reading on 郭勇延</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Tue, 23 Feb 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://www.guoyongyan.com/zh/categories/paper-reading/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 10 Mar 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://www.guoyongyan.com/zh/categories/paper-reading/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>CASIE 从文本中抽取网络安全事件</title>
+      <link>https://www.guoyongyan.com/zh/posts/casie-%E4%BB%8E%E6%96%87%E6%9C%AC%E4%B8%AD%E6%8A%BD%E5%8F%96%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%E4%BA%8B%E4%BB%B6/</link>
+      <pubDate>Wed, 10 Mar 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://www.guoyongyan.com/zh/posts/casie-%E4%BB%8E%E6%96%87%E6%9C%AC%E4%B8%AD%E6%8A%BD%E5%8F%96%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%E4%BA%8B%E4%BB%B6/</guid>
+      <description>原文作者：Taneeya Satyapanich, Francis Ferraro, Tim Finin
+  原文标题：CASIE: Extracting Cybersecurity Event Information from Text
+  原文链接：https://ojs.aaai.org/index.php/AAAI/article/view/6401
+  发表会议：2019 AAAI Conference on Artificial Intelligence
+ UMBC ebiquity研究团队在网络安全知识图谱领域的研究成果之一，该团队在这个领域的研究处于领先地位。本文是该团队提出的一种基于深度学习的网络安全事件抽取方法。
+1 介绍 目前网络攻击和网络犯罪很常见，其频率和严重程度不断增加。新型的网络攻击技术不断进化，利用新的漏洞和环境，如物联网和网络物理系统。如果防御一方能及时了解当前的趋势和漏洞，那么就能更好地抵御攻击。作者提出了CASIE，通过从新闻文章中提取关于网络安全事件的信息来帮助实现这一目标。提取的安全事件可以纳入网络安全知识图谱，便于防御方抵御攻击。
+以前的大多数事件检测研究都集中在人们生活中的常见事件上。这些常见的事件包括“出生”、“结婚”、“工作”和“被指控犯罪”等等。提取常见事件和网络安全事件之间的一个核心区别是所需的领域相关专业知识。本文的研究与其他类型的特定领域信息提取（如提取有关生物医学事件的信息）都存在这一困难。作者的贡献之一是类似地为网络安全领域进行事件抽取的研究。
+提取常见事件和网络安全事件的第二个区别是网络安全事件的固有复杂性。网络攻击事件可以由多个动作、尝试或完成的攻击模式组成。每一次提到其中一项行动都可以被视为单独的网络安全事件描述。 与常见事件相比，一个事件可能涉及的同音词和同义词集合是一个挑战。
+本文主要有三个贡献
+  定义并指定了五个网络安全事件及其语义角色和20种类型的属性。
+  提出了一个新的数据集，其中注释了网络安全事件。
+  提出了CASIE，一个结合了深度学习和语义特征的神经网络安全事件提取系统。
+  2 网络安全事件抽取 作者借用TAC的常见事件检测术语，包括以下内容。
+  事件触发器是一个词或短语，最清楚地表达事件的发生。
+  事件参数是事件参与者或属性值。它们可以是参与事件的可标记实体，例如人员或组织，也可以是指定重要信息的属性，例如时间或金额。
+  角色是事件触发器和参数之间的语义关系。每个事件类型指定它可以拥有的角色和可以填充它们的参数的约束。
+  Realis值指定事件是否发生，并且可以是三个值之一：实际（事件实际发生)、其他(失败事件、未来事件)或模糊(未确定/非特定事件，例如引用钓鱼攻击的概念）。
+  表1定义了可以填充每个事件类型的基本角色和参数。作者从涉及网络攻击或与脆弱性相关的事件的网络安全新闻中选择了一组最初的频繁发生、高影响和不同事件。作者进一步将这两种事件类型分类为五种事件子类型：数据泄露、钓鱼、勒索、发现漏洞、漏洞修复。
+  3 CASIE设计与实现 如图2所示，CASIE的体系结构包括六个步骤：事件触发器检测、事件参数检测、事件参数和角色链接、事件Realis识别、事件共指和映射到知识图。文本的重点是前四个步骤。</description>
+    </item>
+    
     <item>
       <title>RelExt: 用于改进网络安全知识图谱的关系抽取方法</title>
       <link>https://www.guoyongyan.com/zh/posts/relext-%E7%94%A8%E4%BA%8E%E6%94%B9%E8%BF%9B%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%E7%9F%A5%E8%AF%86%E5%9B%BE%E8%B0%B1%E7%9A%84%E5%85%B3%E7%B3%BB%E6%8A%BD%E5%8F%96%E6%96%B9%E6%B3%95/</link>

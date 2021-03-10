@@ -3,8 +3,23 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>https://www.guoyongyan.com/posts/casie-%E4%BB%8E%E6%96%87%E6%9C%AC%E4%B8%AD%E6%8A%BD%E5%8F%96%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%E4%BA%8B%E4%BB%B6/</loc>
+    <lastmod>2021-03-10T00:00:00+00:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh"
+                href="https://www.guoyongyan.com/zh/posts/casie-%E4%BB%8E%E6%96%87%E6%9C%AC%E4%B8%AD%E6%8A%BD%E5%8F%96%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%E4%BA%8B%E4%BB%B6/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://www.guoyongyan.com/posts/casie-%E4%BB%8E%E6%96%87%E6%9C%AC%E4%B8%AD%E6%8A%BD%E5%8F%96%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%E4%BA%8B%E4%BB%B6/"
+                />
+  </url>
+  
+  <url>
     <loc>https://www.guoyongyan.com/categories/</loc>
-    <lastmod>2021-02-23T00:00:00+00:00</lastmod>
+    <lastmod>2021-03-10T00:00:00+00:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="zh"
@@ -19,7 +34,7 @@
   
   <url>
     <loc>https://www.guoyongyan.com/tags/cti/</loc>
-    <lastmod>2021-02-23T00:00:00+00:00</lastmod>
+    <lastmod>2021-03-10T00:00:00+00:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="zh"
@@ -34,7 +49,7 @@
   
   <url>
     <loc>https://www.guoyongyan.com/categories/paper-reading/</loc>
-    <lastmod>2021-02-23T00:00:00+00:00</lastmod>
+    <lastmod>2021-03-10T00:00:00+00:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="zh"
@@ -49,7 +64,7 @@
   
   <url>
     <loc>https://www.guoyongyan.com/posts/</loc>
-    <lastmod>2021-02-23T00:00:00+00:00</lastmod>
+    <lastmod>2021-03-10T00:00:00+00:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="zh"
@@ -59,6 +74,36 @@
                 rel="alternate"
                 hreflang="en"
                 href="https://www.guoyongyan.com/posts/"
+                />
+  </url>
+  
+  <url>
+    <loc>https://www.guoyongyan.com/tags/</loc>
+    <lastmod>2021-03-10T00:00:00+00:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh"
+                href="https://www.guoyongyan.com/zh/tags/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://www.guoyongyan.com/tags/"
+                />
+  </url>
+  
+  <url>
+    <loc>https://www.guoyongyan.com/</loc>
+    <lastmod>2021-03-10T00:00:00+00:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh"
+                href="https://www.guoyongyan.com/zh/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://www.guoyongyan.com/"
                 />
   </url>
   
@@ -74,36 +119,6 @@
                 rel="alternate"
                 hreflang="en"
                 href="https://www.guoyongyan.com/posts/relext-%E7%94%A8%E4%BA%8E%E6%94%B9%E8%BF%9B%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%E7%9F%A5%E8%AF%86%E5%9B%BE%E8%B0%B1%E7%9A%84%E5%85%B3%E7%B3%BB%E6%8A%BD%E5%8F%96%E6%96%B9%E6%B3%95/"
-                />
-  </url>
-  
-  <url>
-    <loc>https://www.guoyongyan.com/tags/</loc>
-    <lastmod>2021-02-23T00:00:00+00:00</lastmod>
-    <xhtml:link
-                rel="alternate"
-                hreflang="zh"
-                href="https://www.guoyongyan.com/zh/tags/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="en"
-                href="https://www.guoyongyan.com/tags/"
-                />
-  </url>
-  
-  <url>
-    <loc>https://www.guoyongyan.com/</loc>
-    <lastmod>2021-02-23T00:00:00+00:00</lastmod>
-    <xhtml:link
-                rel="alternate"
-                hreflang="zh"
-                href="https://www.guoyongyan.com/zh/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="en"
-                href="https://www.guoyongyan.com/"
                 />
   </url>
   

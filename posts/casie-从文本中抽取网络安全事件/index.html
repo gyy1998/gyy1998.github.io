@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Language" content="en">
+
+    <meta name="author" content="Yongyan Guo">
+    <meta name="description" content="原文作者：Taneeya Satyapanich, Francis Ferraro, Tim Finin
+  原文标题：CASIE: Extracting Cybersecurity Event Information from Text
+  原文链接：https://ojs.aaai.org/index.php/AAAI/article/view/6401
+  发表会议：2019 AAAI Conference on Artificial Intelligence
+ UMBC ebiquity研究团队在网络安全知识图谱领域的研究成果之一，该团队在这个领域的研究处于领先地位。本文是该团队提出的一种基于深度学习的网络安全事件抽取方法。
+1 介绍 目前网络攻击和网络犯罪很常见，其频率和严重程度不断增加。新型的网络攻击技术不断进化，利用新的漏洞和环境，如物联网和网络物理系统。如果防御一方能及时了解当前的趋势和漏洞，那么就能更好地抵御攻击。作者提出了CASIE，通过从新闻文章中提取关于网络安全事件的信息来帮助实现这一目标。提取的安全事件可以纳入网络安全知识图谱，便于防御方抵御攻击。
+以前的大多数事件检测研究都集中在人们生活中的常见事件上。这些常见的事件包括“出生”、“结婚”、“工作”和“被指控犯罪”等等。提取常见事件和网络安全事件之间的一个核心区别是所需的领域相关专业知识。本文的研究与其他类型的特定领域信息提取（如提取有关生物医学事件的信息）都存在这一困难。作者的贡献之一是类似地为网络安全领域进行事件抽取的研究。
+提取常见事件和网络安全事件的第二个区别是网络安全事件的固有复杂性。网络攻击事件可以由多个动作、尝试或完成的攻击模式组成。每一次提到其中一项行动都可以被视为单独的网络安全事件描述。 与常见事件相比，一个事件可能涉及的同音词和同义词集合是一个挑战。
+本文主要有三个贡献
+  定义并指定了五个网络安全事件及其语义角色和20种类型的属性。
+  提出了一个新的数据集，其中注释了网络安全事件。
+  提出了CASIE，一个结合了深度学习和语义特征的神经网络安全事件提取系统。
+  2 网络安全事件抽取 作者借用TAC的常见事件检测术语，包括以下内容。
+  事件触发器是一个词或短语，最清楚地表达事件的发生。
+  事件参数是事件参与者或属性值。它们可以是参与事件的可标记实体，例如人员或组织，也可以是指定重要信息的属性，例如时间或金额。
+  角色是事件触发器和参数之间的语义关系。每个事件类型指定它可以拥有的角色和可以填充它们的参数的约束。
+  Realis值指定事件是否发生，并且可以是三个值之一：实际（事件实际发生)、其他(失败事件、未来事件)或模糊(未确定/非特定事件，例如引用钓鱼攻击的概念）。
+  表1定义了可以填充每个事件类型的基本角色和参数。作者从涉及网络攻击或与脆弱性相关的事件的网络安全新闻中选择了一组最初的频繁发生、高影响和不同事件。作者进一步将这两种事件类型分类为五种事件子类型：数据泄露、钓鱼、勒索、发现漏洞、漏洞修复。
+  3 CASIE设计与实现 如图2所示，CASIE的体系结构包括六个步骤：事件触发器检测、事件参数检测、事件参数和角色链接、事件Realis识别、事件共指和映射到知识图。文本的重点是前四个步骤。">
+    <meta name="keywords" content="">
+
+    <meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="CASIE 从文本中抽取网络安全事件"/>
+<meta name="twitter:description" content="原文作者：Taneeya Satyapanich, Francis Ferraro, Tim Finin
+  原文标题：CASIE: Extracting Cybersecurity Event Information from Text
+  原文链接：https://ojs.aaai.org/index.php/AAAI/article/view/6401
+  发表会议：2019 AAAI Conference on Artificial Intelligence
+ UMBC ebiquity研究团队在网络安全知识图谱领域的研究成果之一，该团队在这个领域的研究处于领先地位。本文是该团队提出的一种基于深度学习的网络安全事件抽取方法。
+1 介绍 目前网络攻击和网络犯罪很常见，其频率和严重程度不断增加。新型的网络攻击技术不断进化，利用新的漏洞和环境，如物联网和网络物理系统。如果防御一方能及时了解当前的趋势和漏洞，那么就能更好地抵御攻击。作者提出了CASIE，通过从新闻文章中提取关于网络安全事件的信息来帮助实现这一目标。提取的安全事件可以纳入网络安全知识图谱，便于防御方抵御攻击。
+以前的大多数事件检测研究都集中在人们生活中的常见事件上。这些常见的事件包括“出生”、“结婚”、“工作”和“被指控犯罪”等等。提取常见事件和网络安全事件之间的一个核心区别是所需的领域相关专业知识。本文的研究与其他类型的特定领域信息提取（如提取有关生物医学事件的信息）都存在这一困难。作者的贡献之一是类似地为网络安全领域进行事件抽取的研究。
+提取常见事件和网络安全事件的第二个区别是网络安全事件的固有复杂性。网络攻击事件可以由多个动作、尝试或完成的攻击模式组成。每一次提到其中一项行动都可以被视为单独的网络安全事件描述。 与常见事件相比，一个事件可能涉及的同音词和同义词集合是一个挑战。
+本文主要有三个贡献
+  定义并指定了五个网络安全事件及其语义角色和20种类型的属性。
+  提出了一个新的数据集，其中注释了网络安全事件。
+  提出了CASIE，一个结合了深度学习和语义特征的神经网络安全事件提取系统。
+  2 网络安全事件抽取 作者借用TAC的常见事件检测术语，包括以下内容。
+  事件触发器是一个词或短语，最清楚地表达事件的发生。
+  事件参数是事件参与者或属性值。它们可以是参与事件的可标记实体，例如人员或组织，也可以是指定重要信息的属性，例如时间或金额。
+  角色是事件触发器和参数之间的语义关系。每个事件类型指定它可以拥有的角色和可以填充它们的参数的约束。
+  Realis值指定事件是否发生，并且可以是三个值之一：实际（事件实际发生)、其他(失败事件、未来事件)或模糊(未确定/非特定事件，例如引用钓鱼攻击的概念）。
+  表1定义了可以填充每个事件类型的基本角色和参数。作者从涉及网络攻击或与脆弱性相关的事件的网络安全新闻中选择了一组最初的频繁发生、高影响和不同事件。作者进一步将这两种事件类型分类为五种事件子类型：数据泄露、钓鱼、勒索、发现漏洞、漏洞修复。
+  3 CASIE设计与实现 如图2所示，CASIE的体系结构包括六个步骤：事件触发器检测、事件参数检测、事件参数和角色链接、事件Realis识别、事件共指和映射到知识图。文本的重点是前四个步骤。"/>
+
+    <meta property="og:title" content="CASIE 从文本中抽取网络安全事件" />
+<meta property="og:description" content="原文作者：Taneeya Satyapanich, Francis Ferraro, Tim Finin
+  原文标题：CASIE: Extracting Cybersecurity Event Information from Text
+  原文链接：https://ojs.aaai.org/index.php/AAAI/article/view/6401
+  发表会议：2019 AAAI Conference on Artificial Intelligence
+ UMBC ebiquity研究团队在网络安全知识图谱领域的研究成果之一，该团队在这个领域的研究处于领先地位。本文是该团队提出的一种基于深度学习的网络安全事件抽取方法。
+1 介绍 目前网络攻击和网络犯罪很常见，其频率和严重程度不断增加。新型的网络攻击技术不断进化，利用新的漏洞和环境，如物联网和网络物理系统。如果防御一方能及时了解当前的趋势和漏洞，那么就能更好地抵御攻击。作者提出了CASIE，通过从新闻文章中提取关于网络安全事件的信息来帮助实现这一目标。提取的安全事件可以纳入网络安全知识图谱，便于防御方抵御攻击。
+以前的大多数事件检测研究都集中在人们生活中的常见事件上。这些常见的事件包括“出生”、“结婚”、“工作”和“被指控犯罪”等等。提取常见事件和网络安全事件之间的一个核心区别是所需的领域相关专业知识。本文的研究与其他类型的特定领域信息提取（如提取有关生物医学事件的信息）都存在这一困难。作者的贡献之一是类似地为网络安全领域进行事件抽取的研究。
+提取常见事件和网络安全事件的第二个区别是网络安全事件的固有复杂性。网络攻击事件可以由多个动作、尝试或完成的攻击模式组成。每一次提到其中一项行动都可以被视为单独的网络安全事件描述。 与常见事件相比，一个事件可能涉及的同音词和同义词集合是一个挑战。
+本文主要有三个贡献
+  定义并指定了五个网络安全事件及其语义角色和20种类型的属性。
+  提出了一个新的数据集，其中注释了网络安全事件。
+  提出了CASIE，一个结合了深度学习和语义特征的神经网络安全事件提取系统。
+  2 网络安全事件抽取 作者借用TAC的常见事件检测术语，包括以下内容。
+  事件触发器是一个词或短语，最清楚地表达事件的发生。
+  事件参数是事件参与者或属性值。它们可以是参与事件的可标记实体，例如人员或组织，也可以是指定重要信息的属性，例如时间或金额。
+  角色是事件触发器和参数之间的语义关系。每个事件类型指定它可以拥有的角色和可以填充它们的参数的约束。
+  Realis值指定事件是否发生，并且可以是三个值之一：实际（事件实际发生)、其他(失败事件、未来事件)或模糊(未确定/非特定事件，例如引用钓鱼攻击的概念）。
+  表1定义了可以填充每个事件类型的基本角色和参数。作者从涉及网络攻击或与脆弱性相关的事件的网络安全新闻中选择了一组最初的频繁发生、高影响和不同事件。作者进一步将这两种事件类型分类为五种事件子类型：数据泄露、钓鱼、勒索、发现漏洞、漏洞修复。
+  3 CASIE设计与实现 如图2所示，CASIE的体系结构包括六个步骤：事件触发器检测、事件参数检测、事件参数和角色链接、事件Realis识别、事件共指和映射到知识图。文本的重点是前四个步骤。" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://www.guoyongyan.com/posts/casie-%E4%BB%8E%E6%96%87%E6%9C%AC%E4%B8%AD%E6%8A%BD%E5%8F%96%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%E4%BA%8B%E4%BB%B6/" />
+<meta property="article:published_time" content="2021-03-10T00:00:00+00:00" />
+<meta property="article:modified_time" content="2021-03-10T00:00:00+00:00" />
+
+
+    <title>
+  CASIE 从文本中抽取网络安全事件 · Yongyan Guo
+</title>
+
+    
+      <link rel="canonical" href="https://www.guoyongyan.com/posts/casie-%E4%BB%8E%E6%96%87%E6%9C%AC%E4%B8%AD%E6%8A%BD%E5%8F%96%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%E4%BA%8B%E4%BB%B6/">
+    
+
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css?family=Lato:400,700%7CMerriweather:300,700%7CSource+Code+Pro:400,700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fork-awesome@1.1.7/css/fork-awesome.min.css"
+      integrity="sha256-gsmEoJAws/Kd3CjuOQzLie5Q3yshhvmo7YNtBG7aaEY=" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/normalize.css@8/normalize.min.css">
+    
+      
+      
+      <link rel="stylesheet" href="/css/coder.min.f01c647a0d25b40da992a37c3376291185eed8a50ced8c26cc2c0bcfe38c97df.css" integrity="sha256-8Bxkeg0ltA2pkqN8M3YpEYXu2KUM7YwmzCwLz&#43;OMl98=" crossorigin="anonymous" media="screen" />
+    
+
+    
+
+    
+
+    
+
+    
+
+    <link rel="icon" type="image/png" href="/images/favicon-32x32.png" sizes="32x32">
+    <link rel="icon" type="image/png" href="/images/favicon-16x16.png" sizes="16x16">
+
+    <link rel="apple-touch-icon" href="/images/apple-touch-icon.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+
+    
+      <script defer src="https://twemoji.maxcdn.com/v/13.0.1/twemoji.min.js"
+        integrity="sha384-5f4X0lBluNY/Ib4VhGx0Pf6iDCF99VGXJIyYy7dDLY5QlEd7Ap0hICSSZA1XYbc4" crossorigin="anonymous"></script>
+    
+
+    <meta name="generator" content="Hugo 0.79.1" />
+  </head>
+
+  
+  
+  <body class="colorscheme-light"
+        onload=" twemoji.parse(document.body); "
+  >
+    
+
+    <main class="wrapper">
+      <nav class="navigation">
+  <section class="container">
+    <a class="navigation-title" href="/">
+      Yongyan Guo
+    </a>
+    
+      <input type="checkbox" id="menu-toggle" />
+      <label class="menu-button float-right" for="menu-toggle">
+        <i class="fa fa-bars fa-fw" aria-hidden="true"></i>
+      </label>
+      <ul class="navigation-list">
+        
+          
+            <li class="navigation-item">
+              <a class="navigation-link" href="/about/">About</a>
+            </li>
+          
+            <li class="navigation-item">
+              <a class="navigation-link" href="/posts/">Blog</a>
+            </li>
+          
+            <li class="navigation-item">
+              <a class="navigation-link" href="/awards/">Awards</a>
+            </li>
+          
+            <li class="navigation-item">
+              <a class="navigation-link" href="/publications/">Publications</a>
+            </li>
+          
+            <li class="navigation-item">
+              <a class="navigation-link" href="/contact/">Contact me</a>
+            </li>
+          
+        
+        
+          
+          
+          
+            
+              
+                <li class="navigation-item menu-separator">
+                  <span>|</span>
+                </li>
+                
+              
+              <li class="navigation-item">
+                <a href="https://www.guoyongyan.com/zh/posts/casie-%E4%BB%8E%E6%96%87%E6%9C%AC%E4%B8%AD%E6%8A%BD%E5%8F%96%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%E4%BA%8B%E4%BB%B6/">中文</a>
+              </li>
+            
+          
+        
+      </ul>
+    
+  </section>
+</nav>
+
+
+      <div class="content">
+        
+  <section class="container post">
+    <article>
+      <header>
+        <div class="post-title">
+          <h1 class="title">CASIE 从文本中抽取网络安全事件</h1>
+        </div>
+        <div class="post-meta">
+          <div class="date">
+            <span class="posted-on">
+              <i class="fa fa-calendar" aria-hidden="true"></i>
+              <time datetime='2021-03-10T00:00:00Z'>
+                March 10, 2021
+              </time>
+            </span>
+            <span class="reading-time">
+              <i class="fa fa-clock-o" aria-hidden="true"></i>
+              One-minute read
+            </span>
+          </div>
+          
+          <div class="categories">
+  <i class="fa fa-folder" aria-hidden="true"></i>
+    <a href="/categories/paper-reading/">Paper reading</a></div>
+
+          <div class="tags">
+  <i class="fa fa-tag" aria-hidden="true"></i>
+    <a href="/tags/cti/">CTI</a></div>
+
+        </div>
+      </header>
+
+      <div>
+        
+        <blockquote>
+<p>原文作者：Taneeya Satyapanich, Francis Ferraro, Tim Finin</p>
+</blockquote>
+<blockquote>
+<p>原文标题：CASIE: Extracting Cybersecurity Event Information from Text</p>
+</blockquote>
+<blockquote>
+<p>原文链接：https://ojs.aaai.org/index.php/AAAI/article/view/6401</p>
+</blockquote>
+<blockquote>
+<p>发表会议：2019 AAAI Conference on Artificial Intelligence</p>
+</blockquote>
+<p><a href="https://ebiquity.umbc.edu/">UMBC ebiquity研究团队</a>在网络安全知识图谱领域的研究成果之一，该团队在这个领域的研究处于领先地位。本文是该团队提出的一种基于深度学习的网络安全事件抽取方法。</p>
+<h2 id="1-介绍">1 介绍</h2>
+<p>目前网络攻击和网络犯罪很常见，其频率和严重程度不断增加。新型的网络攻击技术不断进化，利用新的漏洞和环境，如物联网和网络物理系统。如果防御一方能及时了解当前的趋势和漏洞，那么就能更好地抵御攻击。作者提出了CASIE，通过从新闻文章中提取关于网络安全事件的信息来帮助实现这一目标。提取的安全事件可以纳入网络安全知识图谱，便于防御方抵御攻击。</p>
+<p>以前的大多数事件检测研究都集中在人们生活中的常见事件上。这些常见的事件包括“出生”、“结婚”、“工作”和“被指控犯罪”等等。提取常见事件和网络安全事件之间的一个核心区别是所需的领域相关专业知识。本文的研究与其他类型的特定领域信息提取（如提取有关生物医学事件的信息）都存在这一困难。作者的贡献之一是类似地为网络安全领域进行事件抽取的研究。</p>
+<p>提取常见事件和网络安全事件的第二个区别是网络安全事件的固有复杂性。网络攻击事件可以由多个动作、尝试或完成的攻击模式组成。每一次提到其中一项行动都可以被视为单独的网络安全事件描述。 与常见事件相比，一个事件可能涉及的同音词和同义词集合是一个挑战。</p>
+<p>本文主要有三个贡献</p>
+<ul>
+<li>
+<p>定义并指定了五个网络安全事件及其语义角色和20种类型的属性。</p>
+</li>
+<li>
+<p>提出了一个新的数据集，其中注释了网络安全事件。</p>
+</li>
+<li>
+<p>提出了CASIE，一个结合了深度学习和语义特征的神经网络安全事件提取系统。</p>
+</li>
+</ul>
+<h2 id="2-网络安全事件抽取">2 网络安全事件抽取</h2>
+<p>作者借用TAC的常见事件检测术语，包括以下内容。</p>
+<ul>
+<li>
+<p>事件触发器是一个词或短语，最清楚地表达事件的发生。</p>
+</li>
+<li>
+<p>事件参数是事件参与者或属性值。它们可以是参与事件的可标记实体，例如人员或组织，也可以是指定重要信息的属性，例如时间或金额。</p>
+</li>
+<li>
+<p>角色是事件触发器和参数之间的语义关系。每个事件类型指定它可以拥有的角色和可以填充它们的参数的约束。</p>
+</li>
+<li>
+<p>Realis值指定事件是否发生，并且可以是三个值之一：实际（事件实际发生)、其他(失败事件、未来事件)或模糊(未确定/非特定事件，例如引用钓鱼攻击的概念）。</p>
+</li>
+</ul>
+<p>表1定义了可以填充每个事件类型的基本角色和参数。作者从涉及网络攻击或与脆弱性相关的事件的网络安全新闻中选择了一组最初的频繁发生、高影响和不同事件。作者进一步将这两种事件类型分类为五种事件子类型：数据泄露、钓鱼、勒索、发现漏洞、漏洞修复。</p>
+<figure>
+    <img src="/images/blog/20210310/paper3-fig1-20210310.jpg"/> 
+</figure>
+
+<h2 id="3-casie设计与实现">3 CASIE设计与实现</h2>
+<p>如图2所示，CASIE的体系结构包括六个步骤：事件触发器检测、事件参数检测、事件参数和角色链接、事件Realis识别、事件共指和映射到知识图。文本的重点是前四个步骤。</p>
+<figure>
+    <img src="/images/blog/20210310/paper3-fig2-20210310.jpg"/> 
+</figure>
+
+<h3 id="31-事件触发器和事件参数检测">3.1 事件触发器和事件参数检测</h3>
+<p>事件触发器检测和事件参数检测都采用混合双向LSTM神经网络。每个事件触发器分类器和事件参数分类器都使用自己的特征，这两者都包括语义特征和词嵌入向量作为模型的输入。作者使用BIO方案来标记每个词。模型如图3所示。</p>
+<figure>
+    <img src="/images/blog/20210310/paper3-fig3-20210310.jpg"/> 
+</figure>
+
+<h3 id="32-事件参数与角色链接">3.2 事件参数与角色链接</h3>
+<p>角色将被分配给与事件定义的类型约束一致的事件参数。这些约束列于表1。例如，如果在钓鱼事件的上下文中发现了提到人员参数。它可能的角色可能是攻击者，受害者，或信任实体。模型如图4所示。</p>
+<figure>
+    <img src="/images/blog/20210310/paper3-fig4-20210310.jpg"/> 
+</figure>
+
+<h3 id="33-事件realis识别">3.3 事件Realis识别</h3>
+<p>作者确定了事件触发器的realis值。 每个事件触发器都用一个realis值进行注释，以给出一个事件的实例是否实际（事件实际发生)、其他(失败事件、未来事件)或模糊(未确定/非特定事件)。模型如图5所示。</p>
+<figure>
+    <img src="/images/blog/20210310/paper3-fig5-20210310.jpg"/> 
+</figure>
+
+<h2 id="4-实验">4 实验</h2>
+<h3 id="41-数据集">4.1 数据集</h3>
+<p>作者收集了大约5000篇网络安全新闻文章。这些新闻文章发表于2017-2019年。其中大约1000个提到的五个事件，由三位经验丰富的计算机科学家注释，使用多数票选择最终注释。一篇文章中几乎总是出现多个网络安全事件，而且通常也会发现多个事件类型。</p>
+<figure>
+    <img src="/images/blog/20210310/paper3-fig6-20210310.jpg"/> 
+</figure>
+
+<h3 id="42-实验结果">4.2 实验结果</h3>
+<p>事件触发器和事件参数检测实验结果。</p>
+<figure>
+    <img src="/images/blog/20210310/paper3-fig7-20210310.jpg"/> 
+</figure>
+
+<p>事件参数与角色链接实验结果。</p>
+<figure>
+    <img src="/images/blog/20210310/paper3-fig8-20210310.jpg"/> 
+</figure>
+
+<p>事件Realis识别实验结果。</p>
+<figure>
+    <img src="/images/blog/20210310/paper3-fig9-20210310.jpg"/> 
+</figure>
+
+<h2 id="5-开源代码和数据">5 开源代码和数据</h2>
+<p><a href="https://github.com/Ebiquity/CASIE">https://github.com/Ebiquity/CASIE</a></p>
+
+      </div>
+
+
+      <footer>
+        
+
+
+        
+        
+        
+      </footer>
+    </article>
+
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+  <script>
+    MathJax = {
+      tex: {
+        inlineMath: [
+          ['$', '$'], ['\\(', '\\)']
+        ],
+        processEscapes: true,
+        processEnvironments: true
+      },
+      options: {
+        skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre']
+      }
+    };
+  </script>
+  </section>
+
+      </div>
+
+      
+  <footer class="footer">
+    <section class="container">
+      
+      
+        ©
+        
+          2020 -
+        
+        2021
+         Yongyan Guo 
+      
+      
+         · 
+        Powered by <a href="https://gohugo.io/">Hugo</a> & <a href="https://github.com/luizdepra/hugo-coder/">Coder</a>.
+      
+      
+    </section>
+  </footer>
+
+
+    </main>
+
+    
+
+    
+
+    
+
+    <script>
+(function(f, a, t, h, o, m){
+	a[h]=a[h]||function(){
+		(a[h].q=a[h].q||[]).push(arguments)
+	};
+	o=f.createElement('script'),
+	m=f.getElementsByTagName('script')[0];
+	o.async=1; o.src=t; o.id='fathom-script';
+	m.parentNode.insertBefore(o,m)
+})(document, window, '//analytics.example.com/tracker.js', 'fathom');
+fathom('set', 'siteId', 'ABCDE');
+fathom('trackPageview');
+</script>
+
+
+    <script async defer data-domain="example.com" src="https://analytics.example.com/js/plausible.js"></script>
+
+
+    <script data-goatcounter="https://code.goatcounter.com/count"
+        async src="//gc.zgo.at/count.js"></script>
+
+
+    
+<script defer src='https://static.cloudflareinsights.com/beacon.min.js'
+        data-cf-beacon='{"token": "token"}'></script>
+
+
+  </body>
+
+</html>
